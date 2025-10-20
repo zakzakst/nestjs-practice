@@ -8,12 +8,12 @@ export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
   @Get()
-  findAll(): Todo[] {
+  findAll(): Promise<Todo[]> {
     return this.todosService.findAll();
   }
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto): Todo {
+  create(@Body() createTodoDto: CreateTodoDto): Promise<Todo> {
     return this.todosService.create(createTodoDto.title);
   }
 }

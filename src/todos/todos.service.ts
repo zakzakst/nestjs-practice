@@ -1,24 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
 import { Todo } from './todo.entity';
 
 @Injectable()
 export class TodosService {
-  private todos: Todo[] = [
-    { id: 1, title: 'NestJSの環境構築', completed: true },
-    { id: 2, title: 'ToDo APIの作成', completed: false },
-  ]
+  constructor(private prisma: PrismaService) {}
 
-  findAll(): Todo[] {
-    return this.todos;
+  findAll(): Promise<Todo[]> {
+    return this.prisma.todo.findMany();
   }
 
-  create(title: string): Todo {
-    const newTodo: Todo = {
-      id: this.todos.length + 1,
-      title,
-      completed: false,
-    }
-    this.todos.push(newTodo);
-    return newTodo;
+  create(title: string): Promise<Todo> {
+    return this.prisma.todo.create({
+      data: { title },
+    });
   }
 }
