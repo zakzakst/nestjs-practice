@@ -1,0 +1,26 @@
+meta {
+  name: POST TODO
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/todos
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "DTOを使ったバリデーションの実装"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
